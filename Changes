@@ -1,6 +1,7 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
-0.1.2     2013-08-07 11:58:55
+0.1.3     2013-08-07 14:47:32
+          - Reset min perl testing to original behaviour
           - Added code from Module::Provision
           - Added project files to master branch
 
