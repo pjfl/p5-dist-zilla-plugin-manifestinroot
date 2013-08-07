@@ -1,5 +1,6 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
-0.1.1     2013-08-06 19:03:01
+0.1.2     2013-08-07 11:58:55
+          - Added code from Module::Provision
           - Added project files to master branch
 
