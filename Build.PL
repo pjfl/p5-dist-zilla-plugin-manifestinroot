@@ -1,34 +1,38 @@
-# @(#)$Ident: Build.PL 2013-08-07 10:43 pjf ;
+# @(#)$Ident: Build.PL 2013-08-15 10:10 pjf ;
 
 use strict;
 use warnings;
-use inc::Bob; # Module::Build subclass
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 2 $ =~ /\d+/gmx );
 
-Bob->new( {
-   module    => 'Dist::Zilla::Plugin::ManifestInRoot',
-   home_page => 'http://www.roxsoft.co.uk',
-   requires  => {
-      'version'        => 0.88,
-      'namespace::autoclean' => 0.13,
-      'Dist::Zilla'    => 4.300033,
-      'File::Slurp'    => 9999.13,
-      'Moose'          => 2.0802,
-      'Moose::Autobox' => 0.12,   },
-   recommends          => {
-      'App::cpanminus' => 1.6005, },
-   configure_requires  => {
-      'version'        => 0.88,
-      'Module::Build'  => 0.4004, },
-   build_requires      => {
-      'version'        => 0.88,
-      'Dist::Zilla'    => 4.300033,
-      'Module::Build'  => 0.4004, },
-} )->create_build_script; # Goal!
+use File::Spec::Functions qw( splitdir splitpath );
+use Module::Build;
 
-# Local Variables:
-# mode: perl
-# eval: (load-project-state "dist-zilla-plugin-manifestinroot")
-# tab-title: ManifestInRoot
-# tab-width: 3
-# End:
+sub whimper { print {*STDOUT} $_[ 0 ]."\n"; exit 0 }
+
+my $perl_ver = ##{ $meta2{prereqs}->{runtime}->{requires}->{perl} ##};
+my $module   = '##{ $zilla->main_module->name ##}';
+
+$] >= $perl_ver or $ENV{PERL5_CPANPLUS_IS_VERSION}
+   or whimper "Minimum required Perl version is ${perl_ver}";
+
+Module::Build->subclass( code => do { local $/; <DATA> } )->new(
+  'module_name' => __module_name2package_name( $module ),
+  'notes'       => { min_perl_version => $perl_ver },
+##{ $plugin->get_prereqs( 1 ) ##}
+##{ $plugin->get_default('share_dir') ##}
+)->create_build_script;
+
+exit 0;
+
+sub __module_name2package_name {
+   my $module = shift; $module =~ s{ \.pm \z }{}mx;
+   my (undef, $dir, $file) = splitpath( $module );
+   my @dirs   = splitdir( $dir ); shift @dirs; length $dirs[ -1 ] or pop @dirs;
+
+   return join '::', @dirs, $file;
+}
+
+__DATA__
+
+sub _normalize_prereqs { # Dynamic config
+   my $self = shift; my $p = $self->SUPER::_normalize_prereqs; return $p;
+}

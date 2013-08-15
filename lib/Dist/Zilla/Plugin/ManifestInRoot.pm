@@ -1,29 +1,51 @@
-# @(#)Ident: ManifestInRoot.pm 2013-08-07 13:47 pjf ;
+# @(#)Ident: ManifestInRoot.pm 2013-08-15 09:41 pjf ;
 
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 3 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
+use Dist::Zilla::File::FromCode;
+use File::Spec::Functions qw( catfile );
 use Moose;
 use Moose::Autobox;
 use File::Slurp ();
 
-with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::AfterBuild';
+with 'Dist::Zilla::Role::BeforeBuild';
+with 'Dist::Zilla::Role::FileGatherer';
 
-sub setup_installer {
-   my $self    = shift;
-   my $zilla   = $self->zilla;
-   my $content = $zilla->files->map( sub { $_->name } )->sort
-                       ->map( sub { __fix_filename( $_ ) } )->join( "\n" )."\n";
-   my $file    = $zilla->root->file( 'MANIFEST' );
+sub after_build {
+   my ($self, $args) = @_;
 
-   File::Slurp::write_file( "$file", { binmode => ':raw' }, $content );
+   my $path    = catfile( $args->{build_root}, 'MANIFEST' );
+   my $content = File::Slurp::read_file( $path );
+
+   $path = $self->zilla->root->file( 'MANIFEST' );
+   File::Slurp::write_file( "${path}", { binmode => ':raw' }, $content );
+   return;
+}
+
+sub before_build {
+   my $self = shift; unlink $self->zilla->root->file( 'MANIFEST' ); return;
+}
+
+sub gather_files {
+   my ($self, $arg) = @_; my $zilla = $self->zilla;
+
+   my $file = Dist::Zilla::File::FromCode->new( {
+      name => 'MANIFEST',
+      code => sub {
+         $zilla->files->map( sub { $_->name } )->sort
+            ->map( sub { __fix_filename( $_ ) } )->join( "\n" )."\n";
+         },
+      } );
+
+   $self->add_file( $file );
    return;
 }
 
 # Private functions
-
 sub __fix_filename {
    my $name = shift; $name =~ m{ [ \'\\] }mx or return $name;
 
@@ -53,7 +75,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.1.$Rev: 3 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.2.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
@@ -66,9 +88,17 @@ None
 
 =head1 Subroutines/Methods
 
-=head2 setup_installer
+=head2 after_build
 
-The code had to go somewhere
+Copy the F<MANIFEST> file from the build directory to the project root
+
+=head2 before_build
+
+Delete the existing F<MANIFEST> file
+
+=head2 gather_files
+
+Create the content providing callback
 
 =head1 Diagnostics
 

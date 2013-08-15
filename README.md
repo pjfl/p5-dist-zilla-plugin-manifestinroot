@@ -9,7 +9,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 # Version
 
-This documents version v0.1.$Rev: 2 $ of [Dist::Zilla::Plugin::ManifestInRoot](https://metacpan.org/module/Dist::Zilla::Plugin::ManifestInRoot)
+This documents version v0.2.$Rev: 1 $ of [Dist::Zilla::Plugin::ManifestInRoot](https://metacpan.org/module/Dist::Zilla::Plugin::ManifestInRoot)
 
 # Description
 
@@ -22,9 +22,17 @@ None
 
 # Subroutines/Methods
 
-## setup\_installer
+## after\_build
 
-The code had to go somewhere
+Copy the `MANIFEST` file from the build directory to the project root
+
+## before\_build
+
+Delete the existing `MANIFEST` file
+
+## gather\_files
+
+Create the content providing callback
 
 # Diagnostics
 

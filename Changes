@@ -1,5 +1,8 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.2.1     2013-08-15 11:17:02
+          - Switched to Dist::Zilla
+
 0.1.3     2013-08-07 14:47:32
           - Reset min perl testing to original behaviour
           - Added code from Module::Provision
