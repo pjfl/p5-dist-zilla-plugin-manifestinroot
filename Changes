@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
 0.3.1     2014-05-15 22:25:04
+          - Removed dependency on File::Slurp
+
 0.2.1     2013-08-15 11:17:02
           - Switched to Dist::Zilla
 
