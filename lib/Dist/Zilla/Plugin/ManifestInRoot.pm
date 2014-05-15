@@ -1,15 +1,13 @@
-# @(#)Ident: ManifestInRoot.pm 2013-08-15 09:41 pjf ;
-
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
-use Dist::Zilla::File::FromCode;
-use File::Spec::Functions qw( catfile );
 use Moose;
+use Dist::Zilla::File::FromCode;
+use English                 qw( -no_match_vars );
+use File::Spec::Functions   qw( catfile );
 use Moose::Autobox;
-use File::Slurp ();
 
 with 'Dist::Zilla::Role::AfterBuild';
 with 'Dist::Zilla::Role::BeforeBuild';
@@ -18,11 +16,10 @@ with 'Dist::Zilla::Role::FileGatherer';
 sub after_build {
    my ($self, $args) = @_;
 
-   my $path    = catfile( $args->{build_root}, 'MANIFEST' );
-   my $content = File::Slurp::read_file( $path );
+   my $content = __read_all_from( catfile( $args->{build_root}, 'MANIFEST' ) );
 
-   $path = $self->zilla->root->file( 'MANIFEST' );
-   File::Slurp::write_file( "${path}", { binmode => ':raw' }, $content );
+   __write_data_to( $self->zilla->root->file( 'MANIFEST' ), $content );
+
    return;
 }
 
@@ -54,6 +51,22 @@ sub __fix_filename {
    return qq{'$name'};
 }
 
+sub __read_all_from {
+   my $path = shift;
+
+   open my $fh, '<', $path or die 'Path ${path} cannot open: ${OS_ERROR}';
+
+   local $RS = undef; my $content = <$fh>; close $fh; return $content;
+}
+
+sub __write_data_to {
+   my ($path, $data) = @_;
+
+   open my $fh, '>', $path or die "Path ${path} cannot open: ${OS_ERROR}";
+
+   print {$fh} $data; close $fh; return;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;
@@ -75,7 +88,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.2.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.3.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
