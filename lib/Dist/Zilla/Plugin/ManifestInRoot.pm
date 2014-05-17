@@ -1,11 +1,12 @@
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
 use Moose;
 use Dist::Zilla::File::FromCode;
 use English                 qw( -no_match_vars );
+use File::Copy              qw( copy );
 use File::Spec::Functions   qw( catfile );
 use Moose::Autobox;
 
@@ -16,9 +17,8 @@ with 'Dist::Zilla::Role::FileGatherer';
 sub after_build {
    my ($self, $args) = @_;
 
-   my $content = __read_all_from( catfile( $args->{build_root}, 'MANIFEST' ) );
-
-   __write_data_to( $self->zilla->root->file( 'MANIFEST' ), $content );
+   copy( catfile( $args->{build_root}, 'MANIFEST' ),
+         $self->zilla->root->file( 'MANIFEST' ) );
 
    return;
 }
@@ -51,24 +51,6 @@ sub __fix_filename {
    return qq{'$name'};
 }
 
-sub __read_all_from {
-   my $path = shift;
-
-   open my $fh, '<', $path or die 'Path ${path} cannot open: ${OS_ERROR}';
-
-   local $RS = undef; my $content = <$fh>; close $fh; return $content;
-}
-
-sub __write_data_to {
-   my ($path, $data) = @_;
-
-   open my $fh, '>', $path or die "Path ${path} cannot open: ${OS_ERROR}";
-
-   print {$fh} $data; close $fh; return;
-}
-
-__PACKAGE__->meta->make_immutable;
-
 1;
 
 __END__
@@ -88,7 +70,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.3.$Rev: 2 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.4.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 

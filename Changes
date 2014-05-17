@@ -1,5 +1,8 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.4.1     2014-05-17 12:47:04
+          - Copy MANIFEST rather than read / write
+
 0.3.1     2014-05-15 22:25:04
           - Removed dependency on File::Slurp
 
