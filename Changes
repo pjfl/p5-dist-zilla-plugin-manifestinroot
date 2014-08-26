@@ -1,5 +1,9 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.5.1     2014-08-26 18:02:12
+          - This broken smoker is a rash across CPAN
+            69bc01aa-6c01-1014-a840-c829b95c3ac1
+
 0.4.1     2014-05-17 12:47:04
           - Copy MANIFEST rather than read / write
 
