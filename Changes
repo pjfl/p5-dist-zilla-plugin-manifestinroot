@@ -1,5 +1,9 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.6.1     2014-08-27 16:52:09
+          - Hopefully this time the broken smoker will be silenced
+            b6c8672d-6bf5-1014-99ad-e1a5890cd912
+
 0.5.1     2014-08-26 18:02:12
           - This broken smoker is a rash across CPAN
             69bc01aa-6c01-1014-a840-c829b95c3ac1

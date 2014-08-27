@@ -22,7 +22,7 @@ use Test::DZil;
 use Sys::Hostname;
 
 SKIP: {
-   hostname eq 'w5050029' and skip 'Fucking broken crap', 1;
+   lc hostname eq 'w5050029' and skip 'Fucking broken crap', 1;
 
    my $tzil = Builder->from_config
       (  { dist_root => 'lib' },
