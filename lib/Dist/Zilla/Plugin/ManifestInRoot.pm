@@ -1,7 +1,7 @@
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 3 $ =~ /\d+/gmx );
 
 use Moose;
 use Dist::Zilla::File::FromCode;
@@ -13,6 +13,16 @@ with 'Dist::Zilla::Role::AfterBuild';
 with 'Dist::Zilla::Role::BeforeBuild';
 with 'Dist::Zilla::Role::FileGatherer';
 
+# Private functions
+my $_fix_filename = sub {
+   my $name = shift; $name =~ m{ [ \'\\] }mx or return $name;
+
+   $name =~ s{ \\ }{\\\\}gmx; $name =~ s{ ' }{\\'}gmx;
+
+   return qq{'$name'};
+};
+
+# Public methods
 sub after_build {
    my ($self, $args) = @_;
 
@@ -32,22 +42,13 @@ sub gather_files {
    my $file = Dist::Zilla::File::FromCode->new( {
       name => 'MANIFEST',
       code => sub {
-         (join "\n", map { __fix_filename( $_ ) }
-                sort map { $_->name             } @{ $zilla->files } )."\n";
+         (join "\n", map { $_fix_filename->( $_ ) }
+                sort map { $_->name               } @{ $zilla->files } )."\n";
          },
       } );
 
    $self->add_file( $file );
    return;
-}
-
-# Private functions
-sub __fix_filename {
-   my $name = shift; $name =~ m{ [ \'\\] }mx or return $name;
-
-   $name =~ s{ \\ }{\\\\}gmx; $name =~ s{ ' }{\\'}gmx;
-
-   return qq{'$name'};
 }
 
 1;
@@ -77,7 +78,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.6.$Rev: 2 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.6.$Rev: 3 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
