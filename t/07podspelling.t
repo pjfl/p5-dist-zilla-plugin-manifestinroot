@@ -40,3 +40,4 @@ __DATA__
 peter
 flanigan
 Dist::Zilla::Plugin::ManifestInRoot
+merchantability

@@ -1,5 +1,7 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+          - Added badges and public repository
+
 0.6.1     2014-08-27 16:52:09
           - Hopefully this time the broken smoker will be silenced
             b6c8672d-6bf5-1014-99ad-e1a5890cd912

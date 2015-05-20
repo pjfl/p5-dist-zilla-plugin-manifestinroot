@@ -1,3 +1,9 @@
+<div>
+    <a href="https://travis-ci.org/pjfl/p5-dist-zilla-plugin-manifestinroot"><img src="https://travis-ci.org/pjfl/p5-dist-zilla-plugin-manifestinroot.svg?branch=master" alt="Travis CI Badge"></a>
+    <a href="http://badge.fury.io/pl/Dist-Zilla-Plugin-ManifestInRoot"><img src="https://badge.fury.io/pl/Dist-Zilla-Plugin-ManifestInRoot.svg" alt="CPAN Badge"></a>
+    <a href="http://cpants.cpanauthors.org/dist/Dist-Zilla-Plugin-ManifestInRoot"><img src="http://cpants.cpanauthors.org/dist/Dist-Zilla-Plugin-ManifestInRoot.png" alt="Kwalitee Badge"></a>
+</div>
+
 # Name
 
 Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
@@ -9,7 +15,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 # Version
 
-This documents version v0.2.$Rev: 1 $ of [Dist::Zilla::Plugin::ManifestInRoot](https://metacpan.org/module/Dist::Zilla::Plugin::ManifestInRoot)
+This documents version v0.6.$Rev: 1 $ of [Dist::Zilla::Plugin::ManifestInRoot](https://metacpan.org/pod/Dist::Zilla::Plugin::ManifestInRoot)
 
 # Description
 
@@ -40,10 +46,9 @@ None
 
 # Dependencies
 
-- [Dist::Zilla::Role::InstallTool](https://metacpan.org/module/Dist::Zilla::Role::InstallTool)
-- [File::Slurp](https://metacpan.org/module/File::Slurp)
-- [Moose](https://metacpan.org/module/Moose)
-- [Moose::Autobox](https://metacpan.org/module/Moose::Autobox)
+- [Dist::Zilla::Role::InstallTool](https://metacpan.org/pod/Dist::Zilla::Role::InstallTool)
+- [File::Slurp](https://metacpan.org/pod/File::Slurp)
+- [Moose](https://metacpan.org/pod/Moose)
 
 # Incompatibilities
 
@@ -65,10 +70,10 @@ Peter Flanigan, `<pjfl@cpan.org>`
 
 # License and Copyright
 
-Copyright (c) 2013 Peter Flanigan. All rights reserved
+Copyright (c) 2015 Peter Flanigan. All rights reserved
 
 This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself. See [perlartistic](https://metacpan.org/module/perlartistic)
+under the same terms as Perl itself. See [perlartistic](https://metacpan.org/pod/perlartistic)
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT WARRANTY; without even the implied warranty of

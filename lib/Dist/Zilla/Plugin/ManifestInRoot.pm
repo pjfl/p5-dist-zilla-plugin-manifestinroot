@@ -1,14 +1,13 @@
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 2 $ =~ /\d+/gmx );
 
 use Moose;
 use Dist::Zilla::File::FromCode;
 use English                 qw( -no_match_vars );
 use File::Copy              qw( copy );
 use File::Spec::Functions   qw( catfile );
-use Moose::Autobox;
 
 with 'Dist::Zilla::Role::AfterBuild';
 with 'Dist::Zilla::Role::BeforeBuild';
@@ -18,7 +17,7 @@ sub after_build {
    my ($self, $args) = @_;
 
    copy( catfile( $args->{build_root}, 'MANIFEST' ),
-         $self->zilla->root->file( 'MANIFEST' ) );
+             $self->zilla->root->file( 'MANIFEST' ) );
 
    return;
 }
@@ -33,8 +32,8 @@ sub gather_files {
    my $file = Dist::Zilla::File::FromCode->new( {
       name => 'MANIFEST',
       code => sub {
-         $zilla->files->map( sub { $_->name } )->sort
-            ->map( sub { __fix_filename( $_ ) } )->join( "\n" )."\n";
+         (join "\n", map { __fix_filename( $_ ) }
+                sort map { $_->name             } @{ $zilla->files } )."\n";
          },
       } );
 
@@ -59,6 +58,14 @@ __END__
 
 =encoding utf8
 
+=begin html
+
+<a href="https://travis-ci.org/pjfl/p5-dist-zilla-plugin-manifestinroot"><img src="https://travis-ci.org/pjfl/p5-dist-zilla-plugin-manifestinroot.svg?branch=master" alt="Travis CI Badge"></a>
+<a href="http://badge.fury.io/pl/Dist-Zilla-Plugin-ManifestInRoot"><img src="https://badge.fury.io/pl/Dist-Zilla-Plugin-ManifestInRoot.svg" alt="CPAN Badge"></a>
+<a href="http://cpants.cpanauthors.org/dist/Dist-Zilla-Plugin-ManifestInRoot"><img src="http://cpants.cpanauthors.org/dist/Dist-Zilla-Plugin-ManifestInRoot.png" alt="Kwalitee Badge"></a>
+
+=end html
+
 =head1 Name
 
 Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
@@ -70,7 +77,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.6.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.6.$Rev: 2 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
@@ -109,8 +116,6 @@ None
 
 =item L<Moose>
 
-=item L<Moose::Autobox>
-
 =back
 
 =head1 Incompatibilities
@@ -133,7 +138,7 @@ Peter Flanigan, C<< <pjfl@cpan.org> >>
 
 =head1 License and Copyright
 
-Copyright (c) 2013 Peter Flanigan. All rights reserved
+Copyright (c) 2015 Peter Flanigan. All rights reserved
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>
