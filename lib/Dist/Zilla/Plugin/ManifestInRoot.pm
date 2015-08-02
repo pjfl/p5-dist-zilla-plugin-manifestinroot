@@ -1,7 +1,7 @@
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.8.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.9.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
 use Moose;
 use Dist::Zilla::File::FromCode;
@@ -32,11 +32,11 @@ sub after_build {
 
    my $excluding = join '|', $self->excluding;
    my $from      = path( $args->{build_root}, 'MANIFEST' );
-   my @lines     = grep { not m{ \A (?: $excluding ) \z }mx }
-                   $from->lines( { chomp => 1 } );
+   my @lines     = grep { not m{ \A (?: $excluding ) \r?\n \z }mx }
+                   $from->lines;
    my $to        = path( $self->zilla->root, 'MANIFEST' );
 
-   $to->spew( map { "${_}\n" } @lines );
+   $to->spew( @lines );
 
    return;
 }
@@ -91,7 +91,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.8.$Rev: 2 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.9.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
