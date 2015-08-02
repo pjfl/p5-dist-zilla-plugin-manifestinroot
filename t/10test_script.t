@@ -1,30 +1,11 @@
-use strict;
-use warnings;
-use File::Spec::Functions qw( catdir updir );
-use FindBin               qw( $Bin );
-use lib               catdir( $Bin, updir, 'lib' );
+use t::boilerplate;
 
 use Test::More;
-use Test::Requires { version => 0.88 };
-use Module::Build;
-
-my $builder; my $notes = {}; my $perl_ver;
-
-BEGIN {
-   $builder   = eval { Module::Build->current };
-   $builder and $notes = $builder->notes;
-   $perl_ver  = $notes->{min_perl_version} || 5.008;
-   $Bin =~ m{ : .+ : }mx and plan skip_all => 'Two colons in $Bin path';
-}
-
-use Test::Requires "${perl_ver}";
-use ExtUtils::Manifest;
 use Test::DZil;
+use ExtUtils::Manifest;
 use Sys::Hostname;
 
 SKIP: {
-   lc hostname eq 'w5050029' and skip 'Fucking broken crap', 1;
-
    my $tzil = Builder->from_config
       (  { dist_root => 'lib' },
          { add_files => {
@@ -53,7 +34,7 @@ SKIP: {
                     'dist.ini',
                     'Dist/Zilla/Plugin/ManifestInRoot.pm',
                     ) ],
-             'manifest quotes files with spaces'
+             'manifest quotes files with spaces 1'
              );
 
    my @manilines = split /\n/, $tzil->slurp_file( 'source/MANIFEST' );
@@ -68,7 +49,7 @@ SKIP: {
                     'dist.ini',
                     'Dist/Zilla/Plugin/ManifestInRoot.pm',
                     ) ],
-             'manifest quotes files with spaces'
+             'manifest quotes files with spaces 2'
              );
 }
 

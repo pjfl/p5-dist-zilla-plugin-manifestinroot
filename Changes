@@ -1,5 +1,8 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+          - Can filter unwanted files from root copy
+          - Updated toolchain
+
 0.7.1     2015-05-22 09:24:18
           - Added badges and public repository
 
