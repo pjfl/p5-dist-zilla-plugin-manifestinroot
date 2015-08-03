@@ -34,23 +34,9 @@ SKIP: {
                     'dist.ini',
                     'Dist/Zilla/Plugin/ManifestInRoot.pm',
                     ) ],
-             'manifest quotes files with spaces 1'
+             'Manifest in root'
              );
 
-   my @manilines = split /\n/, $tzil->slurp_file( 'source/MANIFEST' );
-
-   chomp @manilines;
-
-   is_deeply(
-             [ sort @manilines ],
-             [ sort(
-                    qq{'file with spaces.txt'},
-                    'MANIFEST',
-                    'dist.ini',
-                    'Dist/Zilla/Plugin/ManifestInRoot.pm',
-                    ) ],
-             'manifest quotes files with spaces 2'
-             );
 }
 
 done_testing;

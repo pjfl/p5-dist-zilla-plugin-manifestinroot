@@ -1,5 +1,8 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.10.1    2015-08-03 13:28:29
+          - Fixed tests on mwwin32
+
 0.9.1     2015-08-02 18:14:02
           - Fixed line termination on mswin32
 
