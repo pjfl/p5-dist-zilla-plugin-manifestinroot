@@ -1,5 +1,7 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+          - Better prereq data for build and test phases
+
 0.11.1    2015-08-29 10:01:39
           - Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2
 

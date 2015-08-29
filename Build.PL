@@ -7,9 +7,7 @@ my $perl_ver = 5.008;
 my $name     = 'Dist-Zilla-Plugin-ManifestInRoot'; $name =~ s{ - }{::}gmx;
 my $prereqs  = {
   'build_requires' => {
-    'Dist::Zilla' => '4.300033',
     'Module::Build' => '0.4004',
-    'Test::Requires' => '0.06',
     'version' => '0.88'
   },
   'configure_requires' => {
@@ -25,9 +23,13 @@ my $prereqs  = {
     'version' => '0.88'
   },
   'test_requires' => {
+    'Dist::Zilla' => '4.300033',
     'File::Spec' => '0',
+    'Module::Build' => '0.4004',
     'Module::Metadata' => '0',
-    'Sys::Hostname' => '0'
+    'Sys::Hostname' => '0',
+    'Test::Requires' => '0.06',
+    'version' => '0.88'
   },
 };
 my $testing  = sub { $ENV{AUTOMATED_TESTING}
