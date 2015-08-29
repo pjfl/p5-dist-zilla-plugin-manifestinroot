@@ -19,6 +19,7 @@ my $prereqs  = {
   'requires' => {
     'Dist::Zilla' => '4.300033',
     'Moose' => '2.0802',
+    'Path::Tiny' => '0.068',
     'namespace::autoclean' => '0.22',
     'perl' => '5.008',
     'version' => '0.88'

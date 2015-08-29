@@ -1,5 +1,6 @@
 requires "Dist::Zilla" => "4.300033";
 requires "Moose" => "2.0802";
+requires "Path::Tiny" => "0.068";
 requires "namespace::autoclean" => "0.22";
 requires "perl" => "5.008";
 requires "version" => "0.88";
