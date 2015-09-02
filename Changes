@@ -1,5 +1,6 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+          - Toolchain update
           - Better prereq data for build and test phases
 
 0.11.1    2015-08-29 10:01:39
