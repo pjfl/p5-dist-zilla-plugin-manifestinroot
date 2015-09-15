@@ -21,10 +21,13 @@ BEGIN {
 
    if ($notes->{testing}) {
       $Bin =~ m{ : .+ : }mx and plan skip_all => 'Two colons in $Bin path';
-      $host eq 'w5050029'   and plan skip_all => 'Broken smoker';
-      $host eq 'w5139020'   and plan
-         skip_all => 'Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2';
    }
+
+   # Not possible to detect smoking
+   # Smoker has two colons in Dist::Zilla::Test rootdir path
+   $host eq 'w5050029'   and plan skip_all => 'Broken smoker';
+   $host eq 'w5139020'   and plan
+      skip_all => 'Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2';
 }
 
 use Test::Requires "${perl_ver}";
