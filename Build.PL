@@ -8,6 +8,7 @@ my $name     = 'Dist-Zilla-Plugin-ManifestInRoot'; $name =~ s{ - }{::}gmx;
 my $prereqs  = {
   'build_requires' => {
     'Module::Build' => '0.4004',
+    'Test::Requires' => '0.06',
     'version' => '0.88'
   },
   'configure_requires' => {

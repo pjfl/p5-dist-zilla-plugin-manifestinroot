@@ -7,7 +7,6 @@ use FindBin               qw( $Bin );
 use lib               catdir( $Bin, updir, 'lib' ), catdir( $Bin, 'lib' );
 
 use Test::More;
-use Test::Requires { version => 0.88 };
 use Module::Build;
 use Sys::Hostname;
 
@@ -23,14 +22,17 @@ BEGIN {
       $Bin =~ m{ : .+ : }mx and plan skip_all => 'Two colons in $Bin path';
    }
 
+   eval { require Test::Requires }; $@ and plan skip_all => 'No Test::Requires';
+
    # Not possible to detect smoking
    # Smoker has two colons in Dist::Zilla::Test rootdir path
-   $host eq 'w5050029'   and plan skip_all => 'Broken smoker';
-   $host eq 'w5139020'   and plan
+   $host eq 'w5050029' and plan skip_all => 'Broken smoker';
+   $host eq 'w5139020' and plan
       skip_all => 'Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2';
 }
 
 use Test::Requires "${perl_ver}";
+use Test::Requires { version => 0.88 };
 
 sub import {
    strict->import;
