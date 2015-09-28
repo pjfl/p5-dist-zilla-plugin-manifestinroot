@@ -6,9 +6,12 @@ use File::Spec::Functions qw( catdir updir );
 use FindBin               qw( $Bin );
 use lib               catdir( $Bin, updir, 'lib' ), catdir( $Bin, 'lib' );
 
-use Test::More;
 use Module::Build;
 use Sys::Hostname;
+
+sub plan (;@) {
+   $_[ 0 ] eq 'skip_all' and print '1..0 # SKIP '.$_[ 1 ]."\n" and exit 0;
+}
 
 my ($builder, $host, $notes, $perl_ver);
 
@@ -18,17 +21,17 @@ BEGIN {
    $notes    = $builder ? $builder->notes : {};
    $perl_ver = $notes->{min_perl_version} || 5.008;
 
-   if ($notes->{testing}) {
-      $Bin =~ m{ : .+ : }mx and plan skip_all => 'Two colons in $Bin path';
-   }
-
    eval { require Test::Requires }; $@ and plan skip_all => 'No Test::Requires';
 
+   $Bin =~ m{ : .+ : }mx and plan skip_all => 'Two colons in $Bin path';
    # Not possible to detect smoking
    # Smoker has two colons in Dist::Zilla::Test rootdir path
    $host eq 'w5050029' and plan skip_all => 'Broken smoker';
-   $host eq 'w5139020' and plan
-      skip_all => 'Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2';
+   $host eq 'w5139020' and plan skip_all =>
+      'Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2';
+
+   if ($notes->{testing}) {
+   }
 }
 
 use Test::Requires "${perl_ver}";
