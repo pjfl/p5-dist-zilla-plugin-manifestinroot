@@ -1,5 +1,6 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+          - Refactored smoker exceptions to dump file
           - Fewer test dependencies in boilerplate
 
 0.13.1    2015-09-26 01:04:22

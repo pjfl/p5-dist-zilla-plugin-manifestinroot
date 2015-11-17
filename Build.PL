@@ -8,7 +8,6 @@ my $name     = 'Dist-Zilla-Plugin-ManifestInRoot'; $name =~ s{ - }{::}gmx;
 my $prereqs  = {
   'build_requires' => {
     'Module::Build' => '0.4004',
-    'Test::Requires' => '0.06',
     'version' => '0.88'
   },
   'configure_requires' => {
@@ -33,9 +32,10 @@ my $prereqs  = {
     'version' => '0.88'
   },
 };
-my $testing  = sub { $ENV{AUTOMATED_TESTING}
-                  || $ENV{PERL_CPAN_REPORTER_CONFIG}
-                  || $ENV{PERL5_CPANPLUS_IS_VERSION} };
+my $testing  = sub {   $ENV{AUTOMATED_TESTING}
+                  ||   $ENV{PERL_CPAN_REPORTER_CONFIG}
+                  ||   $ENV{PERL5_CPANPLUS_IS_VERSION}
+                  || (($ENV{TEMP} || q()) =~ m{ a00772a }mx) };
 my $whimper  = sub { print {*STDOUT} $_[ 0 ]."\n"; exit 0 };
 my $stop     = sub {
    $testing->() or $whimper->( $_[ 0 ] );

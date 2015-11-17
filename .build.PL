@@ -8,9 +8,10 @@ my $name     = '##{ $zilla->name ##}'; $name =~ s{ - }{::}gmx;
 my $prereqs  = {
 ##{ $plugin->get_prereqs( 1 ) ##}
 };
-my $testing  = sub { $ENV{AUTOMATED_TESTING}
-                  || $ENV{PERL_CPAN_REPORTER_CONFIG}
-                  || $ENV{PERL5_CPANPLUS_IS_VERSION} };
+my $testing  = sub {   $ENV{AUTOMATED_TESTING}
+                  ||   $ENV{PERL_CPAN_REPORTER_CONFIG}
+                  ||   $ENV{PERL5_CPANPLUS_IS_VERSION}
+                  || (($ENV{TEMP} || q()) =~ m{ a00772a }mx) };
 my $whimper  = sub { print {*STDOUT} $_[ 0 ]."\n"; exit 0 };
 my $stop     = sub {
    $testing->() or $whimper->( $_[ 0 ] );

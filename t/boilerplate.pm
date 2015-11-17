@@ -2,7 +2,7 @@ package t::boilerplate;
 
 use strict;
 use warnings;
-use File::Spec::Functions qw( catdir updir );
+use File::Spec::Functions qw( catdir catfile updir );
 use FindBin               qw( $Bin );
 use lib               catdir( $Bin, updir, 'lib' ), catdir( $Bin, 'lib' );
 
@@ -24,18 +24,20 @@ BEGIN {
    eval { require Test::Requires }; $@ and plan skip_all => 'No Test::Requires';
 
    $Bin =~ m{ : .+ : }mx and plan skip_all => 'Two colons in $Bin path';
-   # Not possible to detect smoking
-   # Smoker has two colons in Dist::Zilla::Test rootdir path
-   $host eq 'w5050029' and plan skip_all => 'Broken smoker';
-   $host eq 'w5139020' and plan skip_all =>
-      'Broken smoker 85ab240c-6bfd-1014-828b-aa2bd4cf89d2';
 
    if ($notes->{testing}) {
+      my $dumped = catfile( 't', 'exceptions.dd' );
+      my $except = {}; -f $dumped and $except = do $dumped;
+
+      exists $except->{ $host } and plan skip_all =>
+         'Broken smoker '.$except->{ $host };
    }
 }
 
 use Test::Requires "${perl_ver}";
 use Test::Requires { version => 0.88 };
+
+use version; our $VERSION = qv( '0.2' );
 
 sub import {
    strict->import;
