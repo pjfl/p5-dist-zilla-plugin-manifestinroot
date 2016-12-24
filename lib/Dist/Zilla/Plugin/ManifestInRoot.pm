@@ -1,7 +1,7 @@
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.13.%d', q$Rev: 4 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.13.%d', q$Rev: 5 $ =~ /\d+/gmx );
 
 use Moose;
 use Dist::Zilla::File::FromCode;
@@ -91,7 +91,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.13.$Rev: 4 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.13.$Rev: 5 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
