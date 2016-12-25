@@ -1,10 +1,11 @@
 package Dist::Zilla::Plugin::ManifestInRoot;
 
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.15.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.15.%d', q$Rev: 2 $ =~ /\d+/gmx );
 
 use Moose;
 use Dist::Zilla::File::FromCode;
+use File::Spec::Functions qw( catfile );
 use Path::Tiny qw( path );
 
 with 'Dist::Zilla::Role::AfterBuild';
@@ -42,7 +43,7 @@ sub after_build {
 }
 
 sub before_build {
-   my $self = shift; unlink $self->zilla->root->file( 'MANIFEST' ); return;
+   my $self = shift; unlink catfile( $self->zilla->root, 'MANIFEST' ); return;
 }
 
 sub gather_files {
@@ -91,7 +92,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 =head1 Version
 
-This documents version v0.15.$Rev: 1 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
+This documents version v0.15.$Rev: 2 $ of L<Dist::Zilla::Plugin::ManifestInRoot>
 
 =head1 Description
 
