@@ -1,5 +1,6 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.15.1    2016-12-25 16:13:44
           - Tests only for developers
 
 0.14.1    2016-12-24 21:10:37
