@@ -5,6 +5,10 @@ use Test::DZil;
 use ExtUtils::Manifest;
 use Sys::Hostname;
 
+BEGIN {
+   $ENV{AUTHOR_TESTING} or plan skip_all => 'Tests only for developers';
+}
+
 SKIP: {
    my $tzil = Builder->from_config
       (  { dist_root => 'lib' },
