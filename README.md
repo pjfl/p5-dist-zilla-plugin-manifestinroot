@@ -15,7 +15,7 @@ Dist::Zilla::Plugin::ManifestInRoot - Puts the MANIFEST file in the project root
 
 # Version
 
-This documents version v0.15.$Rev: 1 $ of [Dist::Zilla::Plugin::ManifestInRoot](https://metacpan.org/pod/Dist::Zilla::Plugin::ManifestInRoot)
+This documents version v0.16.$Rev: 0 $ of [Dist::Zilla::Plugin::ManifestInRoot](https://metacpan.org/pod/Dist::Zilla::Plugin::ManifestInRoot)
 
 # Description
 

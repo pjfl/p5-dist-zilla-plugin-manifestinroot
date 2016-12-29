@@ -1,5 +1,6 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+0.16.1    2016-12-29 18:46:31
           - Avoid Path::Tiny and Path::Class, use File::Spec
             Total cockup in backward compatibility
 
