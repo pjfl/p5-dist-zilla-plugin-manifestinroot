@@ -1,5 +1,10 @@
 Revision history for Dist::Zilla::Plugin::ManifestInRoot
 
+          - Use Path::Tiny->remove to unlink existing file
+            This is the way it should have been done all along
+            works for both D:Z using Path::Class and D:Z using
+            Path::Tiny
+
 0.16.1    2016-12-29 18:46:31
           - Avoid Path::Tiny and Path::Class, use File::Spec
             Total cockup in backward compatibility
